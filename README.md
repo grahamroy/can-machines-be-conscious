@@ -11,7 +11,7 @@ A Medium article series by [Graham Roy](https://medium.com/@grahamjroy)
 | # | Title | Subtitle | Code | Maths | Status |
 |---|-------|----------|------|-------|--------|
 | 1 | The Hard Problem in Your GPU | Why consciousness matters for AI engineering | -- | -- | ✅ |
-| 2 | Measuring Consciousness with a Number | Integrated Information Theory and Phi | `compute_phi.py` | Heavy | ⬜ |
+| 2 | Measuring Consciousness with a Number | Integrated Information Theory and Phi | `compute_phi.py` | Heavy | ✅ |
 | 3 | Your Brain as a Prediction Machine | Free Energy, active inference, and AI | `predictive_processing.py` | Heavy | ⬜ |
 | 4 | When AI Thinks About Thinking | Higher-order theories and meta-cognition | `metacognitive_agent.py` | Medium | ⬜ |
 | 5 | The Chinese Room, the Zombie, and the Lived Body | Three arguments against machine consciousness | -- | -- | ⬜ |
