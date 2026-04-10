@@ -54,7 +54,7 @@ def build_tpm_from_weights(weights, threshold=0.5, noise=0.1):
         noise: probability of a node being in the "wrong" state (adds stochasticity)
 
     Returns:
-        TPM of shape (2^n, n) — state-by-node conditional probability format
+        TPM of shape (2^n, n) -- state-by-node conditional probability format
     """
     n = len(weights)
     n_states = 2 ** n
@@ -79,36 +79,19 @@ def build_tpm_from_weights(weights, threshold=0.5, noise=0.1):
 # ─────────────────────────────────────────────────────────────────────────────
 
 
-def entropy(prob_dist):
+def kl_divergence(p, q):
     """
-    Shannon entropy H(X) = -sum(p * log2(p)) for a probability distribution.
+    KL divergence D_KL(P || Q) = sum(p * log2(p / q)).
 
-    Measures the uncertainty or "information content" of a distribution.
+    Measures how much distribution P diverges from distribution Q.
+    In our Phi computation, this quantifies the information lost when
+    replacing the whole system's transitions with the partitioned version.
     """
-    # Filter out zero probabilities to avoid log(0)
-    p = prob_dist[prob_dist > 1e-12]
-    return -np.sum(p * np.log2(p))
-
-
-def mutual_information(joint_prob):
-    """
-    Mutual information I(X; Y) from a joint probability table.
-
-    MI measures how much knowing X reduces uncertainty about Y (and vice versa).
-    I(X; Y) = H(X) + H(Y) - H(X, Y)
-
-    In IIT, this captures how much information the parts share — information
-    that would be lost if we severed the connection between them.
-    """
-    # Marginals
-    p_x = joint_prob.sum(axis=1)
-    p_y = joint_prob.sum(axis=0)
-
-    h_x = entropy(p_x)
-    h_y = entropy(p_y)
-    h_xy = entropy(joint_prob.flatten())
-
-    return h_x + h_y - h_xy
+    eps = 1e-12
+    p_safe = np.clip(p, eps, 1.0)
+    q_safe = np.clip(q, eps, 1.0)
+    mask = p > eps
+    return np.sum(p_safe[mask] * np.log2(p_safe[mask] / q_safe[mask]))
 
 
 def tpm_to_full_distribution(tpm):
@@ -139,17 +122,21 @@ def tpm_to_full_distribution(tpm):
 # ─────────────────────────────────────────────────────────────────────────────
 # COMPUTING PHI (simplified)
 #
-# The core idea: Phi is the information lost when we partition the system at
-# its "weakest link" (the Minimum Information Partition, or MIP).
+# The core idea: Phi is the information lost when we "cut" the system at
+# its weakest link -- the Minimum Information Partition (MIP).
 #
-# Full IIT computes Phi using cause-effect repertoires and the Earth Mover's
-# Distance (EMD). Here we use a simplified approach based on mutual information
-# between subsystems, which captures the essential insight: integrated systems
+# Our method: for each bipartition, we sever cross-partition connections
+# in the weight matrix, rebuild the TPM, and measure the KL divergence
+# between the original and partitioned transition distributions. This
+# directly quantifies how much causal information crosses the partition.
+#
+# Full IIT uses cause-effect repertoires and Earth Mover's Distance (EMD).
+# Our simplification captures the essential insight: integrated systems
 # lose information when partitioned; modular systems do not.
 #
 # Why this is NP-hard: for n nodes, we must check all possible bipartitions.
 # The number of bipartitions grows as 2^(n-1) - 1, making exact computation
-# intractable for large systems. This is a real limitation of IIT.
+# intractable for large systems. This is a fundamental limitation of IIT.
 # ─────────────────────────────────────────────────────────────────────────────
 
 
@@ -169,7 +156,6 @@ def get_all_bipartitions(n_nodes):
     nodes = list(range(n_nodes))
     partitions = []
 
-    # Generate all subsets of size 1 to n//2 for one side of the partition
     for size in range(1, n_nodes):
         for part_a in combinations(nodes, size):
             part_b = tuple(n for n in nodes if n not in part_a)
@@ -180,90 +166,87 @@ def get_all_bipartitions(n_nodes):
     return partitions
 
 
-def compute_partition_information_loss(full_tpm, part_a, part_b, n_nodes):
+def partition_weights(weights, part_a, part_b):
     """
-    Compute the information lost by partitioning the system into part_a | part_b.
+    Sever cross-partition connections by zeroing out weights between groups.
 
-    We measure this as the mutual information between the two partitions in the
-    system's transition dynamics. If severing the connection between A and B
-    loses a lot of mutual information, the system is tightly integrated.
-
-    This is a simplification of IIT's actual measure, which uses cause-effect
-    repertoires and EMD. But it captures the core idea.
+    This simulates "cutting" the system: nodes within each partition retain
+    their internal connections, but all causal influence between partitions
+    is removed. The information lost by this cut is what Phi measures.
     """
-    n_states = 2 ** n_nodes
-
-    # Build a joint distribution over (part_a states at t+1) x (part_b states at t+1)
-    # by marginalizing the full TPM, averaged over a uniform distribution of current states
-    n_a = len(part_a)
-    n_b = len(part_b)
-    joint = np.zeros((2 ** n_a, 2 ** n_b))
-
-    # Average over all current states (uniform prior, as in IIT's unconstrained repertoire)
-    for current in range(n_states):
-        for next_state in range(n_states):
-            prob = full_tpm[current, next_state] / n_states  # uniform prior
-
-            # Extract the sub-states for each partition
-            next_bits = state_to_binary(next_state, n_nodes)
-            a_bits = tuple(next_bits[i] for i in part_a)
-            b_bits = tuple(next_bits[i] for i in part_b)
-            a_idx = binary_to_state(a_bits)
-            b_idx = binary_to_state(b_bits)
-
-            joint[a_idx, b_idx] += prob
-
-    return mutual_information(joint)
+    cut = weights.copy()
+    for i in part_a:
+        for j in part_b:
+            cut[i, j] = 0.0  # A no longer influences B
+            cut[j, i] = 0.0  # B no longer influences A
+    return cut
 
 
-def compute_phi(tpm, network_name="Network"):
+def compute_phi(weights, network_name="Network", threshold=0.5, noise=0.1):
     """
-    Compute Phi for a network defined by its state-by-node TPM.
+    Compute Phi for a network defined by its weight matrix.
 
     Steps:
-        1. Convert to full state-by-state transition matrix
-        2. Enumerate all bipartitions
-        3. For each bipartition, compute mutual information lost
-        4. Phi = minimum information lost across all partitions (the MIP)
+        1. Build the TPM from the full (uncut) weight matrix
+        2. Convert to a full state-by-state transition matrix
+        3. For each bipartition, sever cross-partition connections,
+           rebuild the TPM, and measure KL divergence from the original
+        4. Phi = minimum KL divergence across all partitions (the MIP)
 
     Phi = 0 means the system can be fully decomposed without losing information.
     Phi > 0 means the system is irreducibly integrated.
     """
-    n_states, n_nodes = tpm.shape
-    full_tpm = tpm_to_full_distribution(tpm)
-    bipartitions = get_all_bipartitions(n_nodes)
+    n_nodes = len(weights)
+    n_states = 2 ** n_nodes
 
-    print(f"  Transition probability matrix (state-by-node):")
+    # Build the whole-system TPM and full transition matrix
+    tpm_whole = build_tpm_from_weights(weights, threshold, noise)
+    full_whole = tpm_to_full_distribution(tpm_whole)
+
+    # Display the TPM
+    print(f"  Transition probability matrix (state-by-node format):")
     print(f"  {'State':<8} " + " ".join(f"{'Node '+chr(65+j):>8}" for j in range(n_nodes)))
-    for i in range(min(n_states, 8)):  # Print first 8 states max
+    for i in range(min(n_states, 8)):
         bits = state_to_binary(i, n_nodes)
         label = "".join(str(b) for b in bits)
-        probs = " ".join(f"{tpm[i,j]:8.3f}" for j in range(n_nodes))
+        probs = " ".join(f"{tpm_whole[i,j]:8.3f}" for j in range(n_nodes))
         print(f"  {label:<8} {probs}")
     if n_states > 8:
         print(f"  ... ({n_states - 8} more states)")
 
+    bipartitions = get_all_bipartitions(n_nodes)
     print(f"\n  Number of bipartitions to check: {len(bipartitions)}")
     print(f"  (For n={n_nodes} nodes: 2^(n-1) - 1 = {2**(n_nodes-1) - 1} bipartitions)")
 
     # Find the Minimum Information Partition (MIP)
-    min_info = float("inf")
+    min_info_loss = float("inf")
     mip = None
-    partition_results = []
 
     for part_a, part_b in bipartitions:
-        info_loss = compute_partition_information_loss(full_tpm, part_a, part_b, n_nodes)
-        partition_results.append((part_a, part_b, info_loss))
+        # Sever cross-partition connections
+        cut = partition_weights(weights, part_a, part_b)
+
+        # Rebuild TPM with severed connections
+        tpm_cut = build_tpm_from_weights(cut, threshold, noise)
+        full_cut = tpm_to_full_distribution(tpm_cut)
+
+        # Measure information lost: average KL divergence over all current states.
+        # This is the expected divergence under a uniform distribution of states,
+        # matching IIT's "unconstrained" (maximum entropy) prior.
+        info_loss = 0.0
+        for s in range(n_states):
+            info_loss += kl_divergence(full_whole[s], full_cut[s])
+        info_loss /= n_states
 
         label_a = "{" + ",".join(chr(65 + i) for i in part_a) + "}"
         label_b = "{" + ",".join(chr(65 + i) for i in part_b) + "}"
-        print(f"    Partition {label_a} | {label_b}: MI = {info_loss:.6f} bits")
+        print(f"    Partition {label_a} | {label_b}:  info loss = {info_loss:.6f} bits")
 
-        if info_loss < min_info:
-            min_info = info_loss
+        if info_loss < min_info_loss:
+            min_info_loss = info_loss
             mip = (part_a, part_b)
 
-    phi = min_info
+    phi = min_info_loss
     mip_a = "{" + ",".join(chr(65 + i) for i in mip[0]) + "}"
     mip_b = "{" + ",".join(chr(65 + i) for i in mip[1]) + "}"
 
@@ -286,9 +269,10 @@ def define_networks():
     """
     networks = []
 
-    # 1. Chain: A -> B -> C (feedforward — information flows one way)
+    # 1. Chain: A -> B -> C (feedforward -- information flows one way)
     #    Expected: Low Phi. The system can be decomposed because information
-    #    only propagates forward; cutting at any link preserves local dynamics.
+    #    only propagates forward; cutting at any link severs just one
+    #    unidirectional dependency.
     chain = np.array([
         [0.0, 1.0, 0.0],  # A sends to B
         [0.0, 0.0, 1.0],  # B sends to C
@@ -300,14 +284,14 @@ def define_networks():
         chain,
     ))
 
-    # 2. Cycle: A -> B -> C -> A (recurrent loop with self-connections)
+    # 2. Cycle: A -> B -> C -> A (recurrent loop)
     #    Expected: Higher Phi. Each node influences and is influenced by others
-    #    through the loop, creating integrated dynamics.
-    #    Self-connections + loop create richer cross-partition dependencies.
+    #    through the loop, creating integrated dynamics that cannot be
+    #    decomposed without losing causal information.
     cycle = np.array([
-        [0.5, 1.0, 0.0],  # A sends to B (and weak self)
-        [0.0, 0.5, 1.0],  # B sends to C (and weak self)
-        [1.0, 0.0, 0.5],  # C sends back to A (and weak self)
+        [0.0, 1.0, 0.0],  # A sends to B
+        [0.0, 0.0, 1.0],  # B sends to C
+        [1.0, 0.0, 0.0],  # C sends back to A
     ])
     networks.append((
         "Cycle (A -> B -> C -> A)",
@@ -316,12 +300,12 @@ def define_networks():
     ))
 
     # 3. Fully connected: every node connects to every other node
-    #    Expected: Highest Phi. Maximum causal integration — every node
+    #    Expected: Highest Phi. Maximum causal integration -- every node
     #    directly influences every other node.
     fully_connected = np.array([
-        [0.5, 1.0, 1.0],  # A sends to B and C (+ self)
-        [1.0, 0.5, 1.0],  # B sends to A and C (+ self)
-        [1.0, 1.0, 0.5],  # C sends to A and B (+ self)
+        [0.0, 1.0, 1.0],  # A sends to B and C
+        [1.0, 0.0, 1.0],  # B sends to A and C
+        [1.0, 1.0, 0.0],  # C sends to A and B
     ])
     networks.append((
         "Fully Connected (A <-> B <-> C <-> A)",
@@ -330,7 +314,7 @@ def define_networks():
     ))
 
     # 4. Disconnected: three independent nodes (no connections)
-    #    Expected: Phi = 0. No integration at all — the system IS the sum
+    #    Expected: Phi = 0. No integration at all -- the system IS the sum
     #    of its parts, because the parts don't interact.
     disconnected = np.array([
         [0.0, 0.0, 0.0],
@@ -350,6 +334,7 @@ def define_networks():
 # MAIN
 # ─────────────────────────────────────────────────────────────────────────────
 
+
 def main():
     print("=" * 70)
     print("  COMPUTING PHI: Integrated Information Theory in Practice")
@@ -359,9 +344,10 @@ def main():
     print("  A system with high Phi cannot be decomposed into independent pieces")
     print("  without losing information about its causal dynamics.")
     print()
-    print("  This simplified computation uses mutual information between subsystems")
-    print("  to approximate the integrated information lost at each partition.")
-    print("  Full IIT uses cause-effect repertoires and Earth Mover's Distance.")
+    print("  Method: For each bipartition, we sever cross-partition connections")
+    print("  and measure the KL divergence between the original and partitioned")
+    print("  transition distributions. Phi is the minimum such divergence")
+    print("  across all bipartitions (the Minimum Information Partition).")
     print()
     print("  Computational complexity: checking all bipartitions is O(2^n),")
     print("  making exact Phi computation NP-hard for large systems.")
@@ -377,11 +363,7 @@ def main():
         print("-" * 70)
         print()
 
-        # Build TPM from weight matrix
-        tpm = build_tpm_from_weights(weights, threshold=0.5, noise=0.1)
-
-        # Compute Phi
-        phi = compute_phi(tpm, name)
+        phi = compute_phi(weights, name)
         results.append((name, phi))
         print()
 
@@ -394,19 +376,19 @@ def main():
     print(f"  {'-'*42} {'-'*10}")
 
     for name, phi in results:
-        bar = "#" * int(phi * 40)  # Simple visual bar
+        bar = "#" * int(phi * 30)  # Simple visual bar
         print(f"  {name:<42} {phi:>10.6f}  {bar}")
 
     print()
     print("  Key takeaways:")
-    print("  - Feedforward (chain) networks have low Phi: they can be decomposed")
-    print("    into stages without losing much information.")
-    print("  - Recurrent networks (cycles) have higher Phi: information circulates,")
-    print("    creating irreducible causal dependencies.")
+    print("  - Feedforward (chain) networks have low Phi: cutting a single link")
+    print("    removes only one direction of influence.")
+    print("  - Recurrent networks (cycles) have higher Phi: information circulates")
+    print("    in a loop, so every cut severs part of the causal cycle.")
     print("  - Fully connected networks have the highest Phi: every node directly")
     print("    constrains every other, maximizing integration.")
-    print("  - Disconnected networks have Phi near zero: they ARE the sum of")
-    print("    their independent parts.")
+    print("  - Disconnected networks have Phi = 0: severing nonexistent connections")
+    print("    loses no information -- the system IS the sum of its parts.")
     print()
     print("  According to IIT, consciousness is identical to integrated information.")
     print("  A system is conscious to the degree that it has high Phi -- meaning")

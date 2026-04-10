@@ -166,21 +166,21 @@ def compute_phi(tpm, n):
 
 Running the script on our four example networks:
 
-### 1. Disconnected nodes --- $\Phi = 0$
+### 1. Disconnected nodes --- $\Phi = 0.000$
 
-Three independent nodes with no connections. The system can be perfectly partitioned with zero information loss. This is the baseline: no integration, no consciousness.
+Three independent nodes with no connections. Severing nonexistent connections loses no information. The system *is* the sum of its parts. This is the baseline: no integration, no consciousness.
 
-### 2. Feedforward chain --- $\Phi \approx 0$ (very low)
+### 2. Feedforward chain --- $\Phi = 1.268$ (low)
 
-$A \to B \to C$. Information flows in one direction. Although B depends on A and C depends on B, cutting the chain at any point preserves most of the information in each part. The system is barely integrated.
+$A \to B \to C$. Information flows in one direction. Cutting a single link removes only one direction of influence --- the weakest partition severs relatively little causal structure. The system has some integration but not much.
 
 This is the IIT prediction that matters most for AI. A feedforward neural network --- and a transformer is, in its forward pass, feedforward --- has low $\Phi$ regardless of how many layers it has or how intelligent its outputs are.
 
-### 3. Cycle --- $\Phi > 0$ (moderate)
+### 3. Cycle --- $\Phi = 2.536$ (moderate)
 
-$A \to B \to C \to A$. Now information flows in a loop. Cutting any connection severs a feedback pathway, and information is genuinely lost. The system is integrated.
+$A \to B \to C \to A$. Now information flows in a loop. Cutting any connection severs part of the causal cycle, and information is genuinely lost. The system is integrated: roughly double the chain's $\Phi$.
 
-### 4. Fully connected --- $\Phi$ (highest)
+### 4. Fully connected --- $\Phi = 3.170$ (highest)
 
 $A \leftrightarrow B \leftrightarrow C \leftrightarrow A$. Every node influences every other node. No partition can avoid severing multiple connections. This topology maximises integrated information.
 
