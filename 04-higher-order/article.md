@@ -4,7 +4,7 @@
 
 ---
 
-In [Part 1](https://medium.com/@grahamjroy) we lined up eight theories of consciousness and asked which, if any, could apply to a machine. [Part 2](https://medium.com/@grahamjroy) took Integrated Information Theory and showed that its signature quantity, $\Phi$, is NP-hard to compute. [Part 3](https://medium.com/@grahamjroy) turned to the Free Energy Principle and discovered that Friston's equations for the brain are essentially the Evidence Lower Bound you optimise every time you train a variational autoencoder.
+In [Part 1](https://medium.com/@grahamjroy) we lined up eight theories of consciousness and asked which, if any, could apply to a machine. [Part 2](https://medium.com/@grahamjroy) took Integrated Information Theory and showed that its signature quantity, Φ, is NP-hard to compute. [Part 3](https://medium.com/@grahamjroy) turned to the Free Energy Principle and discovered that Friston's equations for the brain are essentially the Evidence Lower Bound you optimise every time you train a variational autoencoder.
 
 If IIT says consciousness is about *how a system is wired* and predictive processing says it is about *what a system optimises*, the family of theories in this article says something more specific: consciousness is about a system's **relationship to its own states**. A perception does not become conscious because it is integrated, and not because it minimises prediction error. It becomes conscious because the system has another, higher representation *about* it --- a thought about the thought.
 
@@ -196,7 +196,7 @@ Placing the first four articles side by side, a pattern emerges.
 
 **Article 1 (The Hard Problem in Your GPU)** set the stage: there is an explanatory gap between mechanism and experience, and AI systems are where that gap starts to matter practically.
 
-**Article 2 (IIT / $\Phi$)** located consciousness in the *structure* of a system --- in how much its causal graph cannot be partitioned without information loss. It cares about wiring.
+**Article 2 (IIT / Φ)** located consciousness in the *structure* of a system --- in how much its causal graph cannot be partitioned without information loss. It cares about wiring.
 
 **Article 3 (The Free Energy Principle)** located consciousness, tentatively, in the *objective* a system is optimising. A system minimising variational free energy over a deep enough generative model *might* be doing something close to experiencing its world.
 
