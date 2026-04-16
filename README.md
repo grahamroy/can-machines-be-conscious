@@ -14,7 +14,7 @@ A Medium article series by [Graham Roy](https://medium.com/@grahamjroy)
 | 2 | Measuring Consciousness with a Number | Integrated Information Theory and Phi | `compute_phi.py` | Heavy | ✅ |
 | 3 | Your Brain as a Prediction Machine | Free Energy, active inference, and AI | `predictive_processing.py` | Heavy | ✅ |
 | 4 | When AI Thinks About Thinking | Higher-order theories and meta-cognition | `metacognitive_agent.py` | Medium | ✅ |
-| 5 | The Chinese Room, the Zombie, and the Lived Body | Three arguments against machine consciousness | -- | -- | ⬜ |
+| 5 | The Chinese Room, the Zombie, and the Lived Body | Three arguments against machine consciousness | -- | -- | ✅ |
 | 6 | Consciousness on a Spectrum | Panpsychism, Russellian monism, and the combination problem | `ising_model.py` | Light | ⬜ |
 | 7 | I Built Two AI Philosophers and Made Them Argue | The adversarial debate experiment | `consciousness_debate.py` | Refs | ⬜ |
 | 8 | Where Do We Stand? | A map of the consciousness landscape for AI engineers | `landscape_plot.py` | Refs | ⬜ |
