@@ -60,7 +60,15 @@ Neither response feels like a victory. Phenomenal bonding is a placeholder. Cosm
 
 The companion script `ising_model.py` simulates a 2D Ising model on a 50x50 lattice. Each site has a spin of +1 or -1, and each spin prefers to align with its four nearest neighbours. The rule is entirely local. Temperature controls how much random flipping the system tolerates.
 
-At high temperature the lattice is a mess. Spins flip freely, neighbours are uncorrelated, and the macroscopic magnetisation --- the average over all spins --- hovers around zero. At low temperature local alignment preferences propagate, domains form, and one direction of alignment wins across the entire lattice. The magnetisation goes to a finite value close to 1 in absolute terms. "Overall orientation" goes from being an incoherent concept to being a real property of the system --- entirely through local interactions. Onsager solved the 2D Ising model exactly in 1944 and showed the critical temperature is T_c = 2 / ln(1+sqrt(2)), approximately 2.269. The script runs lattices at T = 1.5 (ordered), T_c (critical), and T = 3.5 (disordered), plotted as `ising_phases.png`, and sweeps T to produce the classic magnetisation curve in `ising_magnetization.png`.
+At high temperature the lattice is a mess. Spins flip freely, neighbours are uncorrelated, and the macroscopic magnetisation --- the average over all spins --- hovers around zero. At low temperature local alignment preferences propagate, domains form, and one direction of alignment wins across the entire lattice. The magnetisation goes to a finite value close to 1 in absolute terms. "Overall orientation" goes from being an incoherent concept to being a real property of the system --- entirely through local interactions. Onsager solved the 2D Ising model exactly in 1944 and showed the critical temperature is T_c = 2 / ln(1+sqrt(2)), approximately 2.269.
+
+Here are the three regimes side by side --- well below, at, and well above the critical temperature:
+
+![Three Ising lattices at T = 1.5, T_c, and T = 3.5](ising_phases.png)
+
+And the magnetisation sweep across the whole range, with T_c marked:
+
+![Magnetisation curve of the 2D Ising model as a function of temperature](ising_magnetization.png)
 
 What the Ising model shows is that a system of many simple parts, interacting only locally, can exhibit a qualitatively new macroscopic property below a phase transition. "Magnetised in this direction" is not a property of any individual spin; it is a property of the lattice. It arises because local rules, combined with enough components behaving consistently, produce a collective state with its own coherent character. Combination happened.
 
