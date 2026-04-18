@@ -28,10 +28,12 @@ ACCENT_C  = "#8b5cf6"   # violet — panpsychism / radical
 
 THEORIES = [
     # label,                                       x,     y,    colour,    anchor
-    ("Integrated Information Theory",             +0.70, +0.80, ACCENT_A, "lower_right"),
-    ("Global Workspace / Access",                 +0.60, +0.70, ACCENT_A, "upper_left"),
-    ("Free Energy / Predictive Processing",       +0.50, +0.40, ACCENT_A, "lower_right"),
-    ("Higher-Order Theories",                     +0.30, +0.30, ACCENT_A, "upper_left"),
+    ("Integrated Information Theory",             +0.75, +0.85, ACCENT_A, "lower_right"),
+    ("Recurrent Processing Theory",               +0.45, +0.90, ACCENT_A, "upper_right"),
+    ("Global Workspace / Access",                 +0.60, +0.65, ACCENT_A, "lower_right"),
+    ("Attention Schema Theory",                   +0.80, +0.45, ACCENT_A, "lower_right"),
+    ("Free Energy / Predictive Processing",       +0.35, +0.50, ACCENT_A, "upper_left"),
+    ("Higher-Order Theories",                     +0.20, +0.25, ACCENT_A, "lower_right"),
     ("Chinese Room",                              -0.50, -0.80, ACCENT_B, "upper_left"),
     ("Embodiment / Enactivism",                   -0.70, -0.30, ACCENT_B, "upper_right"),
     ("Zombie Argument",                            0.00, -0.90, ACCENT_B, "upper_right"),

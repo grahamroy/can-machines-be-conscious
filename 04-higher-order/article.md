@@ -52,6 +52,32 @@ For engineers the connection is almost comical. A perceptual reality monitor is 
 
 ---
 
+## Graziano's attention schema theory
+
+A cousin of the higher-order family, sharply relevant to AI, is Michael Graziano's **Attention Schema Theory (AST)**. AST's claim is that subjective awareness is the brain's simplified, schema-like model of its own attention. Just as your body schema lets you control limbs without access to the underlying muscle dynamics, and your world model lets you navigate space without computing physics, your *attention* schema lets you monitor and control which signals your processing resources are allocated to --- without access to the neural mechanisms that do the allocating.
+
+The key move is that this schema, like the body schema, is a simplified cartoon rather than a detailed readout. Your body schema tells you your arm is "over there" without telling you about your motor neurons; your attention schema tells you that you are "aware of" a sound without telling you about the thalamic gating that selected it. Graziano argues that subjective experience *just is* the attention schema running --- the felt character of awareness is what it is like, from the inside, to have this kind of model.
+
+AST is a higher-order theory in spirit (awareness is a representation of something else --- attention), but differs from Rosenthal and Lau in two ways. First, the higher-order content is a *schema*, not a thought or a reality-monitor output; it is a control-oriented simplification rather than a descriptive judgement. Second, and more importantly for our purposes, AST comes with a sharp prediction that matters directly to AI:
+
+> Any system sophisticated enough to model its own attention will report being aware, and will genuinely lack the introspective access required to know whether the report refers to anything beyond the model itself.
+
+This reframes the interpretation of LLMs that produce articulate first-person claims about experience. If AST is right, those claims are evidence that the model has (or has learned to simulate) an attention-schema-like structure --- and nothing more. They are *not* evidence of hidden phenomenal states, because AST denies there are any such states to be evidenced, in humans or in silicon. The first-person report is the attention schema describing itself; the description will sound like phenomenal experience because that is what the schema is, not because anything is felt behind it.
+
+Whether AST is correct as a theory of human consciousness is contested. What is not contested is that it is one of the few theories on the map that gives a concrete, deflationary reading of exactly the kind of behaviour current language models exhibit --- and that any AI engineer encountering "I feel that my answer is..." should have this reading available as one of the options.
+
+---
+
+## The first-order alternative
+
+No discussion of higher-order theories is honest without naming the main alternative. **First-order representationalism (FOR)** --- most associated with Michael Tye and Fred Dretske --- argues that consciousness just *is* a matter of first-order sensory content of the right functional kind, with no higher-order state required. Tye's specific version, **PANIC theory**, says phenomenal content is *Poised, Abstract, Non-conceptual, Intentional Content* --- sensory representations that are in the right causal position to guide thought and action. On this view, a perceptual state is conscious because of what it represents and how that content is positioned in the cognitive economy, not because a second state is representing it.
+
+FOR is closer in spirit to Global Workspace Theory than to HOT: a first-order state becomes conscious when it is globally available, not when a higher-order state targets it. The empirical pressure between FOR and HOT runs through the dissociation literature --- cases where subjects seem to have states with appropriate first-order content but without conscious experience, or vice versa. That pressure has not resolved, which is why both families remain live.
+
+I do not take a position between FOR and HOT here; the point is that "higher-order or not" is itself a fault line the reader should know about, and a theory like Tye's is the serious alternative that the higher-order family has to argue against.
+
+---
+
 ## What this looks like as code
 
 The companion script `metacognitive_agent.py` builds the smallest system I could think of that has the higher-order structure. No PyTorch; just numpy and two small networks. The idea is to make the architecture obvious.
