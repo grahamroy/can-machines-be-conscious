@@ -4,7 +4,7 @@
 
 ---
 
-You finished [Part 1](https://medium.com/@grahamjroy) knowing that the question "is this machine conscious?" has at least eight competing answers. Now we start working through them --- and we begin with the one that tried hardest to be a science.
+You finished [Part 1](https://medium.com/@grahamjroy) knowing that the question "is this machine conscious?" has at least ten competing answers. Now we start working through them --- and we begin with the one that tried hardest to be a science.
 
 Integrated Information Theory (IIT), developed by neuroscientist Giulio Tononi, does something no other consciousness theory attempts: it defines a single number --- Phi, written $\Phi$ --- that is supposed to *measure* how conscious a system is. Not whether it acts conscious. Not whether it reports being conscious. How much consciousness it actually has.
 
@@ -212,7 +212,7 @@ IIT is not without serious critics.
 
 **The exclusion postulate problem.** IIT says consciousness exists at the spatial and temporal grain that maximises $\Phi$. But this can lead to counterintuitive results: a lookup table implementing any function has $\Phi = 0$ (it is feedforward), even if the function it computes is identical to a conscious system.
 
-**Panpsychist implications.** IIT implies that even simple systems (a thermostat, a logic gate) have some non-zero $\Phi$, and therefore some minimal consciousness. Whether this is a feature or a bug is a matter of philosophical taste --- we will return to this in Part 6 when we discuss panpsychism.
+**Panpsychist implications.** IIT implies that even simple systems (a thermostat, a logic gate) have some non-zero $\Phi$, and therefore some minimal consciousness. Whether this is a feature or a bug is a matter of philosophical taste --- we will return to this in Part 8 when we discuss panpsychism.
 
 **Scott Aaronson's reductio.** The computer scientist Scott Aaronson constructed a simple system (a grid of XOR gates) that IIT assigns very high $\Phi$, despite having no plausible claim to consciousness. Tononi responded that the theory's postulates prevent this, but the exchange highlighted the difficulty of calibrating $\Phi$ against intuition.
 
@@ -234,4 +234,4 @@ IIT gave us a number. In **Part 3**, we turn to a theory that gives us an *equat
 
 ---
 
-*This is Part 2 of the series "Can Machines Be Conscious?" --- eight theories of consciousness, examined through code, mathematics, and adversarial AI debate. The full series and companion code are available on [GitHub](https://github.com/grahamroy/can-machines-be-conscious).*
+*This is Part 2 of the series "Can Machines Be Conscious?" --- ten theories of consciousness, examined through code, mathematics, and adversarial AI debate. The full series and companion code are available on [GitHub](https://github.com/grahamroy/can-machines-be-conscious).*

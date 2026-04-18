@@ -71,7 +71,7 @@ In the maths:
 
 When precision is high, the system responds strongly to errors (it trusts its senses). When precision is low, the system relies more on its prior predictions (it trusts its model).
 
-This precision-weighting mechanism has been proposed as the neural basis of **attention**. When you attend to something, you increase the precision of prediction errors from that source --- you *trust* those signals more. This connects directly to Attention Schema Theory (Part 1, theory #8) and to the self-attention mechanism in transformers.
+This precision-weighting mechanism has been proposed as the neural basis of **attention**. When you attend to something, you increase the precision of prediction errors from that source --- you *trust* those signals more. This connects directly to Attention Schema Theory (Part 6) and to the self-attention mechanism in transformers.
 
 ---
 
@@ -137,7 +137,7 @@ Friston does not claim that free energy minimisation alone is sufficient for con
 
 A thermostat predicts temperature but has no model of *itself predicting temperature*. A conscious system does. It models its own prediction process, which creates a self-referential loop: the system predicts its own predictions, generates prediction errors about its own prediction errors, and so on.
 
-This self-modelling requirement connects to Higher-Order Theories (Part 4) and Attention Schema Theory --- theories that locate consciousness not in prediction per se, but in *meta-prediction*: the system's model of its own cognitive processes.
+This self-modelling requirement connects to Higher-Order Theories (Part 5) and Attention Schema Theory (Part 6) --- theories that locate consciousness not in prediction per se, but in *meta-prediction*: the system's model of its own cognitive processes.
 
 For AI, this raises a precise question: does your system have a model of itself? Not a description stored in its weights, but an active generative model that predicts its own internal states and generates errors when those predictions fail. Current language models arguably do not --- they model language, not themselves.
 
@@ -168,8 +168,8 @@ If IIT told us that architecture matters (recurrence over feedforward), predicti
 
 ## What comes next
 
-Parts 2 and 3 gave us two mathematically rich theories --- IIT and predictive processing --- both cautiously open to machine consciousness. In **Part 4**, we turn to the theories that focus on what happens when a system thinks about its own thinking: Higher-Order Theories and Attention Schema Theory. We will build a metacognitive agent that monitors its own confidence, and ask whether an LLM that reflects on its own reasoning is doing something genuinely conscious or merely performing a pattern.
+Parts 2 and 3 gave us two mathematically rich theories --- IIT and predictive processing --- both cautiously open to machine consciousness. They located consciousness in *structure* (Φ) and *objective* (free energy). In **Part 4**, we turn to a theory that locates it somewhere else entirely: in a specific *architecture*. Bernard Baars's **Global Workspace Theory** says consciousness happens when information gets broadcast from specialised unconscious processors into a limited-capacity workspace accessible to the rest of the mind. Parts 5 and 6 then deepen the functionalist picture with Higher-Order Theories and Attention Schema Theory --- theories about what happens when a system thinks about its own thinking.
 
 ---
 
-*This is Part 3 of the series "Can Machines Be Conscious?" --- eight theories of consciousness, examined through code, mathematics, and adversarial AI debate. The full series and companion code are available on [GitHub](https://github.com/grahamroy/can-machines-be-conscious).*
+*This is Part 3 of the series "Can Machines Be Conscious?" --- ten theories of consciousness, examined through code, mathematics, and adversarial AI debate. The full series and companion code are available on [GitHub](https://github.com/grahamroy/can-machines-be-conscious).*

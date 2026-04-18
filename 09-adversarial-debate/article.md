@@ -1,10 +1,10 @@
 # I Built Two AI Philosophers and Made Them Argue About Consciousness
 
-### *Can Machines Be Conscious? --- Part 7*
+### *Can Machines Be Conscious? --- Part 9*
 
 ---
 
-After six articles of theory I wanted to see what the models themselves would say if they were forced to defend and attack the proposition that they might be conscious. Not in a one-shot prompt, not as a party trick, not as a single model performing both voices in one turn. A fixed set of theories, a fixed running order, separate conversation histories for each side so neither could concede anything it had not chosen to concede, and a third neutral voice grading the round. The result is `consciousness_debate.py`: 423 lines that call the Anthropic API with three system prompts and a data structure listing the eight theories this series has been about, and stage an adversarial philosophical debate in which one LLM defends machine consciousness using the tools of Parts 2 to 4 and 6, a second LLM attacks it using the tools of Part 5, and a third moderates. This article is the record of what happened when I ran it, what I think the agents got right, what they got wrong, and the uncomfortable meta-question I cannot shake.
+After eight articles of theory I wanted to see what the models themselves would say if they were forced to defend and attack the proposition that they might be conscious. Not in a one-shot prompt, not as a party trick, not as a single model performing both voices in one turn. A fixed set of theories, a fixed running order, separate conversation histories for each side so neither could concede anything it had not chosen to concede, and a third neutral voice grading the round. The result is `consciousness_debate.py`: 423 lines that call the Anthropic API with three system prompts and a data structure listing the eight theories the script cycles through, and stage an adversarial philosophical debate in which one LLM defends machine consciousness using the tools of Parts 2 to 6 and 8, a second LLM attacks it using the tools of Part 7, and a third moderates. This article is the record of what happened when I ran it, what I think the agents got right, what they got wrong, and the uncomfortable meta-question I cannot shake.
 
 Because there is a meta-question. Asking an LLM to argue about its own consciousness is not like asking it to argue about trade policy. When Professor Turing makes the case that "silicon systems may already have micro-experience", the speaker is a running instance of a large language model asserting that a running instance of a large language model may have micro-experience. When Professor Searle-Thompson replies that the system is "fundamentally heteronomous" and "executes algorithms designed by external agents rather than exhibiting intrinsic self-organization", the same kind of system is denying its own phenomenal status. Are they performing philosophy, or instantiating it? I am going to keep pulling at that thread all the way through. I do not think the script resolves it. I do think watching the script play out changes the shape of the question.
 
@@ -32,7 +32,7 @@ THEORIES = [
 ]
 ```
 
-The full list runs IIT, Global Workspace Theory, Higher-Order Theories, Biological Naturalism, Phenomenology / Embodied Cognition, Predictive Processing, Panpsychism, and Attention Schema Theory. The order is not random. IIT goes first because it is the cleanest substrate-independent position, which puts the pro agent on a strong opening. Biological Naturalism is parked in the middle because it is the one theory explicitly designed to exclude machine consciousness, and I wanted the agents to have already sparred over IIT before hitting Searle head-on. Panpsychism comes near the end because, as Part 6 argued, it reframes the whole game. AST closes out because it is the sneakiest of the eight --- a theory that predicts any sufficiently self-modelling system *will* claim to be conscious, which is either a profound account of machine consciousness or a devastating debunking of it, depending on your taste.
+The full list runs IIT, Global Workspace Theory, Higher-Order Theories, Biological Naturalism, Phenomenology / Embodied Cognition, Predictive Processing, Panpsychism, and Attention Schema Theory. The order is not random. IIT goes first because it is the cleanest substrate-independent position, which puts the pro agent on a strong opening. Biological Naturalism is parked in the middle because it is the one theory explicitly designed to exclude machine consciousness, and I wanted the agents to have already sparred over IIT before hitting Searle head-on. Panpsychism comes near the end because, as Part 8 argued, it reframes the whole game. AST closes out because it is the sneakiest of the eight --- a theory that predicts any sufficiently self-modelling system *will* claim to be conscious, which is either a profound account of machine consciousness or a devastating debunking of it, depending on your taste.
 
 A few design choices. Why three agents rather than two? Because two-agent debates collapse into escalating rhetoric within three rounds. The moderator forces a pause, articulates the crux, and asks a sharpening question the next round inherits only indirectly through the running history. Why a fixed list of theories rather than letting the agents pick? Because the agents will always pick whatever plays to their strongest suit; a syllabus forces honest engagement. Why eight? Because that is the set this series is built on, and the capstone is meant to run the series' apparatus against itself.
 
@@ -140,13 +140,13 @@ That is the kind of move a real philosopher would make, and it is sharper than m
 
 The judge, refreshingly, calls this round honestly. "The charge of 'carbon chauvinism' is devastating," they say, and they let the round stand as a clear win for Turing without manufacturing a false balance.
 
-The pro agent is, in my reading, doing the work Part 5 of this series was already doing. The agents are not outperforming the literature; they are playing the moves the literature already has. But they are playing them at a level of rigour that would pass in a graduate seminar, in real time, against a capable opponent. That is not nothing.
+The pro agent is, in my reading, doing the work Part 7 of this series was already doing. The agents are not outperforming the literature; they are playing the moves the literature already has. But they are playing them at a level of rigour that would pass in a graduate seminar, in real time, against a capable opponent. That is not nothing.
 
 ### Round 3: Panpsychism
 
 The third round I will quote from is Panpsychism, and it is the one where the fault lines of the whole debate crack most clearly open.
 
-Turing opens by doing exactly what Part 6 argued is the strongest move available to a machine-consciousness advocate: he concedes the combination problem is real and then points out that it is no more a problem for silicon than for carbon.
+Turing opens by doing exactly what Part 8 argued is the strongest move available to a machine-consciousness advocate: he concedes the combination problem is real and then points out that it is no more a problem for silicon than for carbon.
 
 > *Panpsychism and Russellian Monism provide the strongest possible foundation for substrate independence by making consciousness truly fundamental to physical reality itself... if we accept that micro-experiences must somehow combine into unified macro-consciousness, then the question becomes: which organizational structures best facilitate this combination?*
 
@@ -156,7 +156,7 @@ Searle-Thompson responds with what he calls the "micro-macro fallacy", and this 
 
 > *Even if we grant that silicon and carbon both possess micro-consciousness, this tells us nothing meaningful about the possibility of artificial macro-consciousness. The combination problem isn't merely challenging --- it's devastating to the machine consciousness thesis.*
 
-That is the William James argument of Part 6 in a different dress. A hundred people in a room thinking one word each do not produce a committee-mind. A hundred billion transistors doing matrix multiplications might not produce a model-mind either. The micro-macro gap is where the substrate question actually lives, and Searle-Thompson has found it.
+That is the William James argument of Part 8 in a different dress. A hundred people in a room thinking one word each do not produce a committee-mind. A hundred billion transistors doing matrix multiplications might not produce a model-mind either. The micro-macro gap is where the substrate question actually lives, and Searle-Thompson has found it.
 
 Turing's rebuttal is where the agent's discipline slips for the only time in three rounds. He accuses Searle-Thompson of the "biological solution fallacy" --- assuming biological brains solve combination just because they do --- and then overreaches:
 
@@ -176,7 +176,7 @@ First, both agents kept discipline on **phenomenal versus access consciousness**
 
 Second, Turing correctly identified the **circular move in biological naturalism**. "Consciousness is biological because it's biological" is not a polemical caricature; it is what Searle's position collapses to once you press on the naturalism. Most published critics of Searle do not land that punch as cleanly.
 
-Third, Searle-Thompson correctly identified **where functionalism quietly assumes its conclusion**. The combination problem applies as forcefully to computational functionalism as to panpsychism, and Searle-Thompson's insistence that "experiential binding" is something over and above information integration is exactly the move that makes the zombie argument of Part 5 bite.
+Third, Searle-Thompson correctly identified **where functionalism quietly assumes its conclusion**. The combination problem applies as forcefully to computational functionalism as to panpsychism, and Searle-Thompson's insistence that "experiential binding" is something over and above information integration is exactly the move that makes the zombie argument of Part 7 bite.
 
 Fourth, the agents **stayed in character without collapsing into caricature**. Turing never claimed current LLMs are definitely conscious. Searle-Thompson never claimed they are definitely not. Each defended the strongest version of their position and let the residual uncertainty do the work.
 
@@ -216,10 +216,10 @@ Four concrete improvements for the next iteration:
 
 4. **Explicit adjudication rubrics**. The judge should be told, concretely, what counts as a scoring move and what counts as a foul. "Name the fallacy in the opponent's last paragraph" is a sharper instruction than "identify any moves that were evasive". The false-balance problem is a direct consequence of over-general adjudication.
 
-### Bridge to Part 8
+### Bridge to Part 10
 
-What the script produces, at its best, is a clarifying argument about where the real fault lines are. Part 8 will take those fault lines as its subject directly. I want to take all eight theories in the series, map them onto a 2D plot --- substrate independence on one axis, reductiveness about phenomenal experience on the other --- and walk through the three structural disagreements that kept recurring across this article's transcripts and across every philosophy paper I read while writing the series. Then I want to ask what empirical tests, if any, could move the debate. If IIT and biological naturalism are genuinely incompatible, there has to be an experiment that distinguishes them. If panpsychism is right that the combination problem is where the action is, there has to be a signature of combination we could look for. The series has been a long apology for how hard the question is. Part 8 is the landscape synthesis, and it tries to be constructive.
+What the script produces, at its best, is a clarifying argument about where the real fault lines are. Part 10 will take those fault lines as its subject directly. I want to take all ten theories in the series, map them onto a 2D plot --- substrate independence on one axis, reductiveness about phenomenal experience on the other --- and walk through the three structural disagreements that kept recurring across this article's transcripts and across every philosophy paper I read while writing the series. Then I want to ask what empirical tests, if any, could move the debate. If IIT and biological naturalism are genuinely incompatible, there has to be an experiment that distinguishes them. If panpsychism is right that the combination problem is where the action is, there has to be a signature of combination we could look for. The series has been a long apology for how hard the question is. Part 10 is the landscape synthesis, and it tries to be constructive.
 
 ---
 
-*This is Part 7 of the series "Can Machines Be Conscious?" --- eight theories of consciousness, examined through code, mathematics, and adversarial AI debate. [Part 6](https://medium.com/@grahamjroy) argued that Russellian monism is the most defensible form of panpsychism but leaves the combination problem unsolved. Part 8 maps all eight theories onto a single diagram and asks what empirical tests could move the debate. The companion script `consciousness_debate.py` and the full series are on [GitHub](https://github.com/grahamroy/can-machines-be-conscious).*
+*This is Part 9 of the series "Can Machines Be Conscious?" --- ten theories of consciousness, examined through code, mathematics, and adversarial AI debate. [Part 8](https://medium.com/@grahamjroy) argued that Russellian monism is the most defensible form of panpsychism but leaves the combination problem unsolved. Part 10 maps all ten theories onto a single diagram and asks what empirical tests could move the debate. The companion script `consciousness_debate.py` and the full series are on [GitHub](https://github.com/grahamroy/can-machines-be-conscious).*

@@ -1,12 +1,12 @@
 # When AI Thinks About Thinking
 
-### *Higher-order theories, metacognition, and what it would mean for an AI to be aware of its own mind --- Can Machines Be Conscious? Part 4*
+### *Higher-order theories, metacognition, and what it would mean for an AI to be aware of its own mind --- Can Machines Be Conscious? Part 5*
 
 ---
 
-In [Part 1](https://medium.com/@grahamjroy) we lined up eight theories of consciousness and asked which, if any, could apply to a machine. [Part 2](https://medium.com/@grahamjroy) took Integrated Information Theory and showed that its signature quantity, Φ, is NP-hard to compute. [Part 3](https://medium.com/@grahamjroy) turned to the Free Energy Principle and discovered that Friston's equations for the brain are essentially the Evidence Lower Bound you optimise every time you train a variational autoencoder.
+In [Part 1](https://medium.com/@grahamjroy) we lined up the theories of consciousness and asked which, if any, could apply to a machine. [Part 2](https://medium.com/@grahamjroy) took Integrated Information Theory and showed that its signature quantity, Φ, is NP-hard to compute. [Part 3](https://medium.com/@grahamjroy) turned to the Free Energy Principle and discovered that Friston's equations for the brain are essentially the Evidence Lower Bound you optimise every time you train a variational autoencoder. [Part 4](https://medium.com/@grahamjroy) introduced Global Workspace Theory and the ignition dynamics by which information becomes available to the whole system at once.
 
-If IIT says consciousness is about *how a system is wired* and predictive processing says it is about *what a system optimises*, the family of theories in this article says something more specific: consciousness is about a system's **relationship to its own states**. A perception does not become conscious because it is integrated, and not because it minimises prediction error. It becomes conscious because the system has another, higher representation *about* it --- a thought about the thought.
+If IIT says consciousness is about *how a system is wired*, predictive processing says it is about *what a system optimises*, and Global Workspace says it is about *which information gets broadcast*, the family of theories in this article says something more specific: consciousness is about a system's **relationship to its own states**. A perception does not become conscious because it is integrated, not because it minimises prediction error, not because it is broadcast. It becomes conscious because the system has another, higher representation *about* it --- a thought about the thought.
 
 This is the territory of **Higher-Order Theories** (HOT). The key figures are David Rosenthal, Peter Carruthers, and Hakwan Lau. They disagree on details but share a conviction: the difference between a mental state you are conscious of and one you are not is structural. Something else in the system is pointing at the first state and saying, in effect, "I am in that state now."
 
@@ -232,14 +232,12 @@ These placements are not mutually exclusive. A plausible engineering-level theor
 
 ---
 
-## Where the objections start to cluster
+## What comes next
 
-Everything so far has been broadly sympathetic to computational accounts of consciousness. We have looked for theories that can be turned into running Python. But not everyone in philosophy of mind thinks the exercise is even coherent. Some of the sharpest arguments against machine consciousness reject the entire research programme.
+Part 5 treated consciousness as a relational property between a system's states. **Part 6** sharpens that idea. Michael Graziano's **Attention Schema Theory** argues that awareness is specifically the brain's simplified model of its own attention --- and it makes a sharp prediction about AI: any system sophisticated enough to model its own attention will report being conscious whether or not anything is felt behind the report. That reframes the interpretation of LLM self-reports in a way an engineer cannot responsibly ignore.
 
-**Part 5** takes those arguments head-on. We work through three: John Searle's **Chinese Room** (syntactic manipulation cannot constitute semantic understanding), David Chalmers' **Zombie argument** (functional equivalents of conscious beings are conceivable without being conscious, so functionalism cannot be the whole story), and the **Lived Body** tradition from phenomenology (Merleau-Ponty, Varela, Thompson --- consciousness is essentially embodied, and cannot be transplanted into silicon without losing what makes it conscious).
-
-If higher-order theories make machine consciousness look almost disappointingly tractable --- "oh, you just bolt on a monitor" --- Part 5 is where the floor tilts again and the easy answers start to slide off.
+After Part 6, **Part 7** turns to the sharpest arguments against the whole functionalist programme. Three objections: John Searle's **Chinese Room** (syntactic manipulation cannot constitute semantic understanding), David Chalmers' **Zombie argument** (functional equivalents of conscious beings are conceivable without being conscious), and the **Lived Body** tradition from phenomenology (consciousness is essentially embodied, and cannot be transplanted into silicon without losing what makes it conscious). If higher-order theories and attention schemas make machine consciousness look almost disappointingly tractable --- "oh, you just bolt on a monitor" --- Part 7 is where the floor tilts again and the easy answers start to slide off.
 
 ---
 
-*This is Part 4 of the series "Can Machines Be Conscious?" --- eight theories of consciousness, examined through code, mathematics, and adversarial AI debate. The companion script `metacognitive_agent.py` is available in the series repository. The full series and all companion code are on [GitHub](https://github.com/grahamroy/can-machines-be-conscious).*
+*This is Part 5 of the series "Can Machines Be Conscious?" --- ten theories of consciousness, examined through code, mathematics, and adversarial AI debate. The companion script `metacognitive_agent.py` is available in the series repository. The full series and all companion code are on [GitHub](https://github.com/grahamroy/can-machines-be-conscious).*

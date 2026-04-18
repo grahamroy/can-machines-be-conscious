@@ -229,7 +229,7 @@ The following table summarises where each theory lands:
 
 ## What comes next
 
-This article gave you the vocabulary and the map. The next seven will take you into
+This article gave you the vocabulary and the map. The next nine will take you into
 the territory.
 
 **Part 2** starts with the theory that is most amenable to mathematical analysis:
@@ -241,6 +241,6 @@ surprising.
 
 ---
 
-*This is Part 1 of the series "Can Machines Be Conscious?" --- eight theories of
+*This is Part 1 of the series "Can Machines Be Conscious?" --- ten theories of
 consciousness, examined through code, mathematics, and adversarial AI debate. The
 full series is available on [Medium](https://medium.com/@grahamjroy).*

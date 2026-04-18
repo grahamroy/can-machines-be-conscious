@@ -1,0 +1,101 @@
+<p>In Part 2, we measured consciousness with a number. Integrated Information Theory gave us Phi --- a precise quantity derived from a system's causal structure. The problem was that computing Phi is NP-hard, making the theory unverifiable for any real-world system.</p>
+<p>Now we turn to a theory that approaches consciousness from the opposite direction. Instead of asking "how integrated is this system?", it asks: "how good is this system at predicting its own future?"</p>
+<p>The <strong>Free Energy Principle</strong> (FEP), developed by neuroscientist Karl Friston, proposes that all self-organising systems --- from single cells to human brains --- share one objective: minimise surprise. Consciousness, in this framework, may arise from a system's model of itself as a prediction machine. And the mathematics behind it turns out to be something AI engineers already know well: variational inference.</p>
+<hr />
+<h2>The core idea in one paragraph</h2>
+<p>A conscious system maintains a model of the world. It uses that model to predict what it will sense next. When the prediction is wrong, the error signal drives the system to update either its model (learning) or its actions (behaviour). The quantity being minimised --- the gap between prediction and reality --- is called <strong>variational free energy</strong>. A system that minimises free energy is, mathematically, performing approximate Bayesian inference on the causes of its sensory input.</p>
+<hr />
+<h2>From thermodynamics to neuroscience</h2>
+<p>The term "free energy" is borrowed from physics, but the connection is more than metaphorical. In thermodynamics, free energy measures how far a system is from equilibrium. In Friston's framework, variational free energy measures how far a system's beliefs are from the true posterior distribution over hidden causes.</p>
+<p>The formal definition:</p>
+<p><strong>F = E_q[log q(s) - log p(o, s)]</strong></p>
+<p>Where:
+- <strong>q(s)</strong> is the system's approximate belief about hidden states s
+- <strong>p(o, s)</strong> is the joint probability of observations o and hidden states s (the generative model)
+- <strong>F</strong> is the variational free energy --- an upper bound on surprise</p>
+<p>This can be decomposed into two terms:</p>
+<p><strong>F = KL[q(s) || p(s|o)] + (-log p(o))</strong></p>
+<p>The first term is the KL divergence between the system's beliefs and the true posterior --- a measure of how wrong the beliefs are. The second term is surprise --- the negative log probability of the observation under the model.</p>
+<p>Since surprise is fixed for a given observation, minimising free energy forces the KL divergence towards zero. In other words: <strong>minimising free energy is equivalent to making your beliefs match reality as closely as possible.</strong> This is Bayesian inference, implemented as an optimisation problem.</p>
+<hr />
+<h2>Predictive processing: the architecture</h2>
+<p>The Free Energy Principle tells you <em>what</em> to optimise. <strong>Predictive processing</strong> tells you <em>how</em> the brain implements it.</p>
+<p>The architecture is a hierarchy of prediction-error-minimisation loops:</p>
+<p><strong>Level 0 (sensory):</strong> Raw sensory input arrives.</p>
+<p><strong>Level 1:</strong> Predicts the sensory input based on its current beliefs. The difference between prediction and reality is the <strong>prediction error</strong>. This error propagates upward.</p>
+<p><strong>Level 2:</strong> Receives the prediction error from Level 1 and uses it to update a higher-level model of the hidden causes. It sends updated predictions back down.</p>
+<p><strong>Level N:</strong> Each level predicts the activity of the level below. Prediction errors flow up; predictions flow down.</p>
+<p>The key insight is that <strong>most of the information flowing in the brain is top-down prediction, not bottom-up sensation.</strong> You are not passively receiving the world --- you are actively constructing it, and only the <em>mistakes</em> (prediction errors) propagate upward. This is why you do not notice the feeling of your clothes against your skin until someone mentions it: the prediction was accurate, so no error signal was generated.</p>
+<hr />
+<h2>Precision weighting</h2>
+<p>Not all prediction errors are created equal. A noisy sensor produces unreliable errors. A clear signal produces reliable ones. The system needs to know how much to <em>trust</em> each error signal.</p>
+<p>This is handled by <strong>precision</strong> --- the inverse of variance. High precision means the error is reliable and should be weighted heavily. Low precision means the error is noisy and should be discounted.</p>
+<p>In the maths:</p>
+<p><strong>update = learning_rate * precision * prediction_error</strong></p>
+<p>When precision is high, the system responds strongly to errors (it trusts its senses). When precision is low, the system relies more on its prior predictions (it trusts its model).</p>
+<p>This precision-weighting mechanism has been proposed as the neural basis of <strong>attention</strong>. When you attend to something, you increase the precision of prediction errors from that source --- you <em>trust</em> those signals more. This connects directly to Attention Schema Theory (Part 6) and to the self-attention mechanism in transformers.</p>
+<hr />
+<h2>Building a predictive processing agent</h2>
+<p>The companion script <code>predictive_processing.py</code> implements a minimal two-level predictive processing hierarchy.</p>
+<h3>The setup</h3>
+<p>The agent observes a simple 1D signal --- a sine wave with a specific frequency. The hidden cause is the frequency itself, which occasionally changes (a regime shift).</p>
+<ul>
+<li><strong>Level 1</strong> maintains a belief about the current signal value and predicts the next observation.</li>
+<li><strong>Level 2</strong> maintains a belief about the hidden cause (frequency) and predicts what Level 1 should be seeing.</li>
+</ul>
+<h3>The learning loop</h3>
+<p>At each timestep:</p>
+<ol>
+<li>The environment generates an observation (sin at the current frequency + noise).</li>
+<li>Level 1 computes prediction error = observation - prediction.</li>
+<li>Level 1 updates its belief using precision-weighted error.</li>
+<li>The prediction error propagates to Level 2.</li>
+<li>Level 2 updates its belief about the hidden frequency.</li>
+<li>Level 2 sends an updated prediction back to Level 1.</li>
+<li>The system computes its variational free energy.</li>
+</ol>
+<h3>What happens</h3>
+<p><strong>Phase 1 --- Stable signal.</strong> The agent quickly learns the frequency. Prediction errors shrink to near zero. Free energy drops and stabilises. The agent has formed an accurate model of its world.</p>
+<p><strong>Phase 2 --- Regime change.</strong> The frequency suddenly shifts. Prediction errors spike. Free energy jumps. The agent's model is temporarily wrong, and it <em>knows</em> it is wrong (the prediction errors tell it so). Over the next several timesteps, it adapts its beliefs to the new frequency, and free energy drops again.</p>
+<p><strong>Phase 3 --- Comparison with a flat predictor.</strong> A non-hierarchical predictor that tracks the signal directly (no hidden-cause model) adapts more slowly to regime changes, because it has no mechanism for modelling the <em>structure</em> behind the signal.</p>
+<hr />
+<h2>The connection to modern AI</h2>
+<p>If the mathematics of predictive processing look familiar, they should. The variational free energy equation is the same as the <strong>Evidence Lower Bound (ELBO)</strong> used in variational autoencoders (VAEs):</p>
+<p><strong>ELBO = E_q[log p(x|z)] - KL[q(z|x) || p(z)]</strong></p>
+<p>Maximising the ELBO is mathematically identical to minimising variational free energy. Every VAE you have ever trained is implementing a simplified version of predictive processing.</p>
+<p>The connections run deeper:</p>
+<ul>
+<li><strong>Prediction error minimisation</strong> is gradient descent on a loss function. The "loss" is free energy.</li>
+<li><strong>Hierarchical predictive coding</strong> is structurally similar to the encoder-decoder architecture of transformers and U-Nets.</li>
+<li><strong>Precision weighting</strong> maps to attention mechanisms --- both amplify informative signals and suppress noisy ones.</li>
+<li><strong>Active inference</strong> (using actions to reduce prediction errors, rather than updating beliefs) is the same structure as reinforcement learning with a model-based agent.</li>
+</ul>
+<p>Friston's claim is that these are not analogies. They are the <em>same mathematics</em>, discovered independently by neuroscience and machine learning.</p>
+<hr />
+<h2>Does predictive processing give us consciousness?</h2>
+<p>Here is where the theory gets speculative --- and honest about it.</p>
+<p>Friston does not claim that free energy minimisation alone is sufficient for consciousness. Many simple systems minimise free energy (a thermostat predicts temperature and acts to minimise error). The claim is more nuanced:</p>
+<p><strong>Consciousness may arise when a system's generative model includes a model of itself as an agent.</strong></p>
+<p>A thermostat predicts temperature but has no model of <em>itself predicting temperature</em>. A conscious system does. It models its own prediction process, which creates a self-referential loop: the system predicts its own predictions, generates prediction errors about its own prediction errors, and so on.</p>
+<p>This self-modelling requirement connects to Higher-Order Theories (Part 5) and Attention Schema Theory (Part 6) --- theories that locate consciousness not in prediction per se, but in <em>meta-prediction</em>: the system's model of its own cognitive processes.</p>
+<p>For AI, this raises a precise question: does your system have a model of itself? Not a description stored in its weights, but an active generative model that predicts its own internal states and generates errors when those predictions fail. Current language models arguably do not --- they model language, not themselves.</p>
+<hr />
+<h2>Objections</h2>
+<p><strong>The boundary problem.</strong> Where does the system end and the environment begin? Free energy minimisation requires defining a boundary (the "Markov blanket"). For a brain, this is plausible (the skull). For a distributed AI system, it is unclear.</p>
+<p><strong>Unfalsifiability.</strong> Critics argue that the FEP is so general that it applies to everything and therefore predicts nothing. If every self-organising system minimises free energy, the principle cannot distinguish conscious from non-conscious systems.</p>
+<p><strong>The consciousness gap.</strong> Even if predictive processing explains all the <em>functional</em> aspects of consciousness (attention, learning, perception), it does not obviously explain <em>why</em> prediction feels like something. This is the hard problem (Part 1) reasserting itself.</p>
+<hr />
+<h2>What predictive processing gets right</h2>
+<p>The Free Energy Principle offers something valuable for AI engineers: a unified mathematical framework that connects perception, learning, action, and attention under a single objective. Whether or not it fully explains consciousness, it provides:</p>
+<ol>
+<li><strong>A clear computational architecture</strong> (hierarchical prediction error minimisation) that can be implemented and tested.</li>
+<li><strong>Explicit connections</strong> to existing AI methods (VAEs, attention, model-based RL).</li>
+<li><strong>A testable criterion</strong> for one necessary condition of consciousness: self-modelling.</li>
+<li><strong>A principled account of attention</strong> as precision weighting --- something transformers implement but do not explain.</li>
+</ol>
+<p>If IIT told us that architecture matters (recurrence over feedforward), predictive processing tells us that <em>objective</em> matters: a system that minimises prediction error about the world and about itself may be doing something closer to consciousness than a system that merely classifies inputs.</p>
+<hr />
+<h2>What comes next</h2>
+<p>Parts 2 and 3 gave us two mathematically rich theories --- IIT and predictive processing --- both cautiously open to machine consciousness. They located consciousness in <em>structure</em> (Φ) and <em>objective</em> (free energy). In <strong>Part 4</strong>, we turn to a theory that locates it somewhere else entirely: in a specific <em>architecture</em>. Bernard Baars's <strong>Global Workspace Theory</strong> says consciousness happens when information gets broadcast from specialised unconscious processors into a limited-capacity workspace accessible to the rest of the mind. Parts 5 and 6 then deepen the functionalist picture with Higher-Order Theories and Attention Schema Theory --- theories about what happens when a system thinks about its own thinking.</p>
+<hr />
+<p><em>This is Part 3 of the series "Can Machines Be Conscious?" --- ten theories of consciousness, examined through code, mathematics, and adversarial AI debate. The full series and companion code are available on <a href="https://github.com/grahamroy/can-machines-be-conscious">GitHub</a>.</em></p>
