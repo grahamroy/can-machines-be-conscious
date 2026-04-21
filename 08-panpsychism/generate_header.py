@@ -192,13 +192,13 @@ ax.text(right_panel_x + right_panel_w/2, panel_y + 1.0,
         color=dark_text, fontfamily='sans-serif', zorder=6)
 
 # ─── Footer caption ───
-ax.text(8, 0.55, 'Can Machines Be Conscious? Part 6',
+ax.text(8, 0.55, 'Can Machines Be Conscious? Part 8',
         ha='center', va='center', fontsize=10,
         color=subtle_text, fontfamily='sans-serif', style='italic',
         zorder=5)
 
 # ─── Save ───
-output_path = r'D:\Projects\Medium\AI Consciousness\06-panpsychism\header_panpsychism.png'
+output_path = r'D:\Projects\Medium\AI Consciousness\08-panpsychism\header_panpsychism.png'
 plt.savefig(output_path, dpi=150, facecolor='white', edgecolor='none')
 plt.close()
 print(f"Saved to: {output_path}")

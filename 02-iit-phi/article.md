@@ -4,7 +4,7 @@
 
 ---
 
-You finished [Part 1](https://medium.com/@grahamjroy) knowing that the question "is this machine conscious?" has at least ten competing answers. Now we start working through them --- and we begin with the one that tried hardest to be a science.
+You finished [Part 1](https://grahamjroy.medium.com/the-hard-problem-in-your-gpu-bc7831241762) knowing that the question "is this machine conscious?" has at least ten competing answers. Now we start working through them --- and we begin with the one that tried hardest to be a science.
 
 Integrated Information Theory (IIT), developed by neuroscientist Giulio Tononi, does something no other consciousness theory attempts: it defines a single number --- Phi, written $\Phi$ --- that is supposed to *measure* how conscious a system is. Not whether it acts conscious. Not whether it reports being conscious. How much consciousness it actually has.
 

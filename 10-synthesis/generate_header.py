@@ -30,7 +30,7 @@ ax.text(8, 8.40, 'Where Do We Stand?',
         ha='center', va='center', fontsize=20, fontweight='bold',
         color=dark_text, fontfamily='sans-serif')
 ax.text(8, 7.88,
-        'Eight theories of consciousness on one map.  Can Machines Be Conscious? Part 8',
+        'The consciousness landscape on one map.  Can Machines Be Conscious? Part 10',
         ha='center', va='center', fontsize=10.5, color=subtle_text,
         fontfamily='sans-serif', style='italic')
 
@@ -198,7 +198,7 @@ for (label, fill, border), lx in zip(legend_specs, legend_centers_x):
             style='italic', zorder=5)
 
 # ─── Save ───
-output_path = r'D:\Projects\Medium\AI Consciousness\08-synthesis\header_synthesis.png'
+output_path = r'D:\Projects\Medium\AI Consciousness\10-synthesis\header_synthesis.png'
 plt.savefig(output_path, dpi=150, facecolor='white', edgecolor='none')
 plt.close()
 print(f"Saved to: {output_path}")

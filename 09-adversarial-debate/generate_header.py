@@ -33,7 +33,7 @@ bubble_edge = '#CBD5E1'
 ax.text(8, 8.15, 'Two AI Philosophers Argue About Consciousness',
         ha='center', va='center', fontsize=18, fontweight='bold',
         color=dark_text, fontfamily='sans-serif')
-ax.text(8, 7.65, 'Can Machines Be Conscious?  Part 7',
+ax.text(8, 7.65, 'Can Machines Be Conscious?  Part 9',
         ha='center', va='center', fontsize=11, color=subtle_text,
         fontfamily='sans-serif', style='italic')
 
@@ -297,7 +297,7 @@ ax.text(8, 0.55, 'An adversarial debate between two LLM agents',
         zorder=5)
 
 # ─── Save ───
-output_path = r'D:\Projects\Medium\AI Consciousness\07-adversarial-debate\header_debate.png'
+output_path = r'D:\Projects\Medium\AI Consciousness\09-adversarial-debate\header_debate.png'
 plt.savefig(output_path, dpi=150, facecolor='white', edgecolor='none')
 plt.close()
 print(f"Saved to: {output_path}")

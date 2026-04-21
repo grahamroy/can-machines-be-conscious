@@ -134,4 +134,4 @@ A parting note to anyone building systems that might one day deserve the word *c
 
 ---
 
-*This is Part 10, the final article, of the series "Can Machines Be Conscious?" --- ten theories of consciousness, examined through code, mathematics, and adversarial AI debate. The companion script `landscape_plot.py` and the full series are on [GitHub](https://github.com/grahamroy/can-machines-be-conscious) and [Medium](https://medium.com/@grahamjroy). Thank you for reading.*
+*This is Part 10, the final article, of a ten-article series, "Can Machines Be Conscious?" --- examining eight major theories of consciousness through code, mathematics, and adversarial AI debate. The companion script `landscape_plot.py` and the full series are on [GitHub](https://github.com/grahamroy/can-machines-be-conscious) and [Medium](https://medium.com/@grahamjroy). Thank you for reading.*

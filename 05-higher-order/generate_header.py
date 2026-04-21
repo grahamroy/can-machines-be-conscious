@@ -264,13 +264,13 @@ for text in leg.get_texts():
     text.set_color(dark_text)
 
 # ─── Footer caption ───
-ax.text(8, 0.55, 'Can Machines Be Conscious? Part 4',
+ax.text(8, 0.55, 'Can Machines Be Conscious? Part 5',
         ha='center', va='center', fontsize=10,
         color=subtle_text, fontfamily='sans-serif', style='italic',
         zorder=5)
 
 # ─── Save ───
-output_path = r'D:\Projects\Medium\AI Consciousness\04-higher-order\header_metacognition.png'
+output_path = r'D:\Projects\Medium\AI Consciousness\05-higher-order\header_metacognition.png'
 plt.savefig(output_path, dpi=150, facecolor='white', edgecolor='none')
 plt.close()
 print(f"Saved to: {output_path}")

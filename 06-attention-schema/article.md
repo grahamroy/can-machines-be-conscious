@@ -4,7 +4,7 @@
 
 ---
 
-In [Part 5](https://medium.com/@grahamjroy) I laid out higher-order theories as a family. Consciousness, on those theories, is a relational property between a system's states: a first-order representation becomes conscious when a second state points at it and says, in effect, "I am in that state now". Rosenthal, Carruthers and Lau disagreed about the pointer --- an occurrent thought, a dispositional one, a reality monitor --- but they agreed on the structural feature: a second layer watching the first.
+In [Part 5](https://grahamjroy.medium.com/when-ai-thinks-about-thinking-ef1cf997de1f) I laid out higher-order theories as a family. Consciousness, on those theories, is a relational property between a system's states: a first-order representation becomes conscious when a second state points at it and says, in effect, "I am in that state now". Rosenthal, Carruthers and Lau disagreed about the pointer --- an occurrent thought, a dispositional one, a reality monitor --- but they agreed on the structural feature: a second layer watching the first.
 
 Part 6 sharpens this. **Attention Schema Theory (AST)**, developed since the early 2010s by Michael Graziano and colleagues at Princeton, narrows the higher-order story in a specific direction. Consciousness is not just any meta-representation. It is the specific meta-representation a brain uses to monitor and control its own **attention**. Awareness, on this view, is a **schema** --- a cartoon, an idealised control model --- not an accurate readout.
 
@@ -218,4 +218,4 @@ If AST makes machine consciousness look almost disappointingly tractable --- bui
 
 ---
 
-*This is Part 6 of the series "Can Machines Be Conscious?" --- eight theories of consciousness, examined through code, mathematics, and adversarial AI debate. [Part 5](https://medium.com/@grahamjroy) presented higher-order theories as a family; Part 7 turns to the three sharpest objections to machine consciousness --- the Chinese Room, the zombie argument, and the lived body. The companion script `attention_schema.py` and the full series are on [GitHub](https://github.com/grahamroy/can-machines-be-conscious).*
+*This is Part 6 of the series "Can Machines Be Conscious?" --- ten theories of consciousness, examined through code, mathematics, and adversarial AI debate. [Part 5](https://grahamjroy.medium.com/when-ai-thinks-about-thinking-ef1cf997de1f) presented higher-order theories as a family; Part 7 turns to the three sharpest objections to machine consciousness --- the Chinese Room, the zombie argument, and the lived body. The companion script `attention_schema.py` and the full series are on [GitHub](https://github.com/grahamroy/can-machines-be-conscious).*

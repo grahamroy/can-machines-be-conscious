@@ -4,7 +4,7 @@
 
 ---
 
-The last two articles in this series located consciousness in two very different places. [Part 2](https://medium.com/@grahamjroy) put it in *structure*: Tononi's Φ is a number read off a system's causal graph, and a system earns consciousness by being the kind of thing you cannot partition without losing information. [Part 3](https://medium.com/@grahamjroy) put it in *objective*: Friston's free-energy agents become candidates for consciousness by the job they are doing --- minimising prediction error about a world and, eventually, about themselves.
+The last two articles in this series located consciousness in two very different places. [Part 2](https://grahamjroy.medium.com/measuring-consciousness-with-a-number-4c6b963a2093) put it in *structure*: Tononi's Φ is a number read off a system's causal graph, and a system earns consciousness by being the kind of thing you cannot partition without losing information. [Part 3](https://grahamjroy.medium.com/your-brain-as-a-prediction-machine-5a4252b7eae8) put it in *objective*: Friston's free-energy agents become candidates for consciousness by the job they are doing --- minimising prediction error about a world and, eventually, about themselves.
 
 Part 4 moves again. It locates consciousness neither in wiring nor in what a system is optimising, but in a specific **architecture**: a bottleneck. Many specialised unconscious processors do the hard work, and a small, shared workspace at the centre of the system picks one of their outputs and broadcasts it to everybody else. Consciousness, on this view, is what that broadcast looks like from the inside.
 
@@ -192,4 +192,4 @@ Part 5 takes a step orthogonal to all three. If GWT is about *what makes informa
 
 ---
 
-*This is Part 4 of the series "Can Machines Be Conscious?" --- eight theories of consciousness, examined through code, mathematics, and adversarial AI debate. The companion script `workspace_simulation.py` is available in the series repository. See [Part 3](https://medium.com/@grahamjroy) on predictive processing and [Part 5](https://medium.com/@grahamjroy) on higher-order theories. The full series and all companion code are on [GitHub](https://github.com/grahamroy/can-machines-be-conscious).*
+*This is Part 4 of the series "Can Machines Be Conscious?" --- ten theories of consciousness, examined through code, mathematics, and adversarial AI debate. The companion script `workspace_simulation.py` is available in the series repository. See [Part 3](https://grahamjroy.medium.com/your-brain-as-a-prediction-machine-5a4252b7eae8) on predictive processing and [Part 5](https://grahamjroy.medium.com/when-ai-thinks-about-thinking-ef1cf997de1f) on higher-order theories. The full series and all companion code are on [GitHub](https://github.com/grahamroy/can-machines-be-conscious).*

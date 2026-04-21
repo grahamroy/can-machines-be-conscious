@@ -441,13 +441,13 @@ ax.text(p3_cx, panel_y + 0.42, 'Mind requires an organism',
 
 
 # ─── Footer caption ───
-ax.text(8, 0.30, 'Can Machines Be Conscious? Part 5',
+ax.text(8, 0.30, 'Can Machines Be Conscious? Part 7',
         ha='center', va='center', fontsize=10,
         color=subtle_text, fontfamily='sans-serif', style='italic',
         zorder=5)
 
 # ─── Save ───
-output_path = r'D:\Projects\Medium\AI Consciousness\05-objections\header_objections.png'
+output_path = r'D:\Projects\Medium\AI Consciousness\07-objections\header_objections.png'
 plt.savefig(output_path, dpi=150, facecolor='white', edgecolor='none')
 plt.close()
 print(f"Saved to: {output_path}")

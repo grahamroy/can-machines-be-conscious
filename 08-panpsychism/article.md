@@ -110,4 +110,4 @@ Part 9 does exactly that. **"I Built Two AI Philosophers and Made Them Argue Abo
 
 ---
 
-*This is Part 8 of the series "Can Machines Be Conscious?" --- ten theories of consciousness, examined through code, mathematics, and adversarial AI debate. [Part 7](https://medium.com/@grahamjroy) gave the three strongest objections to machine consciousness. Part 9 puts two LLMs in an adversarial debate about whether the models themselves might be conscious. The companion script `ising_model.py` and the full series are on [GitHub](https://github.com/grahamroy/can-machines-be-conscious).*
+*This is Part 8 of the series "Can Machines Be Conscious?" --- ten theories of consciousness, examined through code, mathematics, and adversarial AI debate. [Part 7](https://grahamjroy.medium.com/the-chinese-room-the-zombie-and-the-lived-body-7c8d310cdbf2) gave the three strongest objections to machine consciousness. Part 9 puts two LLMs in an adversarial debate about whether the models themselves might be conscious. The companion script `ising_model.py` and the full series are on [GitHub](https://github.com/grahamroy/can-machines-be-conscious).*
